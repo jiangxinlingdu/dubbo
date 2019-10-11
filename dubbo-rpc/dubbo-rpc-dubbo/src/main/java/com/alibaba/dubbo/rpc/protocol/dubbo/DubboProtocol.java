@@ -54,6 +54,11 @@ import java.util.concurrent.ConcurrentMap;
 
 /**
  * dubbo protocol support.
+ *
+ * Dubbo 配置模块中，扩展点均有对应配置属性或标签，通过配置指定使用哪个扩展实现。
+ * 而我们使用的例子里面都是通过如下方式：
+ * use dubbo protocol to export service on port 20880
+ <dubbo:protocol name="dubbo" port="20880"/>
  */
 public class DubboProtocol extends AbstractProtocol {
 
