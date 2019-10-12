@@ -566,6 +566,10 @@ public class ExtensionLoader<T> {
         return classes;
     }
 
+    /**
+     * 加载拓展实现类数组
+     * @return
+     */
     // synchronized in getExtensionClasses
     private Map<String, Class<?>> loadExtensionClasses() {
         final SPI defaultAnnotation = type.getAnnotation(SPI.class);

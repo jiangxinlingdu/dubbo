@@ -33,6 +33,8 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
  * DubboNamespaceHandler
  *
  * @export
+ *
+ * DubboNamespaceHandler继承了NamespaceHandlerSupport。因此不需要实现所有的解析工作，只要将自定义schema中的元素解析器注册进来就可以。
  */
 public class DubboNamespaceHandler extends NamespaceHandlerSupport {
 
@@ -42,6 +44,8 @@ public class DubboNamespaceHandler extends NamespaceHandlerSupport {
 
     @Override
     public void init() {
+        //DubboBeanDefinitionParser类实现了BeanDefinitionParser这个接口，负责将标签转换成bean定义对象BeanDefinition。
+
         registerBeanDefinitionParser("application", new DubboBeanDefinitionParser(ApplicationConfig.class, true));
         registerBeanDefinitionParser("module", new DubboBeanDefinitionParser(ModuleConfig.class, true));
         registerBeanDefinitionParser("registry", new DubboBeanDefinitionParser(RegistryConfig.class, true));

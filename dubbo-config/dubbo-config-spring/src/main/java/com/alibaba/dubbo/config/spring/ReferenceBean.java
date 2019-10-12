@@ -41,6 +41,8 @@ import java.util.Map;
  * ReferenceFactoryBean
  *
  * @export
+ *
+ *   <dubbo:reference/> 自定义标签被spring加载时生成ReferenceBean
  */
 public class ReferenceBean<T> extends ReferenceConfig<T> implements FactoryBean, ApplicationContextAware, InitializingBean, DisposableBean {
 
