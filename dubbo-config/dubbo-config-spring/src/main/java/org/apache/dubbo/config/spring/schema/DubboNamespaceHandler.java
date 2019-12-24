@@ -56,6 +56,11 @@ public class DubboNamespaceHandler extends NamespaceHandlerSupport implements Co
         Version.checkDuplicate(DubboNamespaceHandler.class);
     }
 
+    /**
+     * 在Dubbo命名空间下定义了一系列XML节点，如：application、protocol、registry、provider、service 等，
+     * Dubbo通过实现Spring提供的 NamespaceHandler 接口，向Spring注册 BeanDefinition 解析器，
+     * 使Spring能识别Dubbo命名空间下的节点，并且通过实现 BeanDefinitionParser 接口，使Spring能解析各节点的具体配置。
+     */
     @Override
     public void init() {
         registerBeanDefinitionParser("application", new DubboBeanDefinitionParser(ApplicationConfig.class, true));
