@@ -179,6 +179,10 @@ public class ServiceConfig<T> extends ServiceConfigBase<T> {
         dispatch(new ServiceConfigUnexportedEvent(this));
     }
 
+    /**
+     * 暴露服务
+     */
+    @Override
     public synchronized void export() {
         if (!shouldExport()) {
             return;
