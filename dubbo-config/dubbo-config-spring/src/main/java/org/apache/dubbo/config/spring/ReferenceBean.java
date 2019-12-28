@@ -63,6 +63,11 @@ public class ReferenceBean<T> extends ReferenceConfig<T> implements FactoryBean,
         SpringExtensionFactory.addApplicationContext(applicationContext);
     }
 
+    /**
+     * FactoryBean 通常是用来创建比较复杂的bean，
+     * 一般的bean 直接用xml配置即可，但如果一个bean的创建过程中涉及到很多其他的bean 和复杂的逻辑，
+     * 用xml配置比较困难，这时可以考虑用FactoryBean。
+     */
     @Override
     public Object getObject() {
         return get();
