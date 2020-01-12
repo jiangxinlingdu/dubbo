@@ -139,6 +139,7 @@ public class CtClassBuilder {
      * build CtClass object
      */
     public CtClass build(ClassLoader classLoader) throws NotFoundException, CannotCompileException {
+        //创建 class 的 pool
         ClassPool pool = new ClassPool(true);
         pool.appendClassPath(new LoaderClassPath(classLoader));
         

@@ -25,6 +25,8 @@ import java.util.regex.Pattern;
 
 /**
  * JavassistCompiler. (SPI, Singleton, ThreadSafe)
+ *
+ * Javassist 是一个开源的分析、编辑和创建Java字节码的类库
  */
 public class JavassistCompiler extends AbstractCompiler {
 
@@ -76,7 +78,7 @@ public class JavassistCompiler extends AbstractCompiler {
             }
         });
 
-        // compile
+        // compile  说白了 就是把 source 源代码 string 格式 变成 Class 对象；
         ClassLoader classLoader = org.apache.dubbo.common.utils.ClassUtils.getCallerClassLoader(getClass());
         CtClass cls = builder.build(classLoader);
         return cls.toClass(classLoader, JavassistCompiler.class.getProtectionDomain());
