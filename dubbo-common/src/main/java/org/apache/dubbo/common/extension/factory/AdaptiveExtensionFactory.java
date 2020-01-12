@@ -44,6 +44,7 @@ public class AdaptiveExtensionFactory implements ExtensionFactory {
     @Override
     public <T> T getExtension(Class<T> type, String name) {
         for (ExtensionFactory factory : factories) {
+            // 获取对象，获取到了 就直接返回
             T extension = factory.getExtension(type, name);
             if (extension != null) {
                 return extension;

@@ -332,6 +332,7 @@ public class ExtensionLoader<T> {
     }
 
     private Holder<Object> getOrCreateHolder(String name) {
+        // 大部分都是这个模式 缓存里面获取 没有就创建之后放到缓存 有就直接返回
         Holder<Object> holder = cachedInstances.get(name);
         if (holder == null) {
             cachedInstances.putIfAbsent(name, new Holder<>());
@@ -375,6 +376,8 @@ public class ExtensionLoader<T> {
     /**
      * Find the extension with the given name. If the specified name is not found, then {@link IllegalStateException}
      * will be thrown.
+
+     * 返回指定名称的扩展，如果指定名称的扩展不存在，抛异常
      */
     @SuppressWarnings("unchecked")
     public T getExtension(String name) {
@@ -588,6 +591,8 @@ public class ExtensionLoader<T> {
 
     @SuppressWarnings("unchecked")
     private T createExtension(String name) {
+        //getExtensionClasses() 从 spi 的配置文件，把所有文件读出来，之后缓存
+        //从缓存里面进行读取
         Class<?> clazz = getExtensionClasses().get(name);
         if (clazz == null) {
             throw findException(name);
@@ -598,10 +603,13 @@ public class ExtensionLoader<T> {
                 EXTENSION_INSTANCES.putIfAbsent(clazz, clazz.newInstance());
                 instance = (T) EXTENSION_INSTANCES.get(clazz);
             }
+            // IOC
             injectExtension(instance);
             Set<Class<?>> wrapperClasses = cachedWrapperClasses;
             if (CollectionUtils.isNotEmpty(wrapperClasses)) {
                 for (Class<?> wrapperClass : wrapperClasses) {
+                    // (T) wrapperClass.getConstructor(type).newInstance(instance) AOP
+                    // injectExtension 方法  IOC
                     instance = injectExtension((T) wrapperClass.getConstructor(type).newInstance(instance));
                 }
             }
@@ -617,6 +625,7 @@ public class ExtensionLoader<T> {
         return getExtensionClasses().containsKey(name);
     }
 
+    //IOC 控制，实现动态注入
     private T injectExtension(T instance) {
 
         if (objectFactory == null) {
@@ -641,6 +650,7 @@ public class ExtensionLoader<T> {
 
                 try {
                     String property = getSetterProperty(method);
+                    //为 dubbo 的 IOC 提供对象
                     Object object = objectFactory.getExtension(pt, property);
                     if (object != null) {
                         method.invoke(instance, object);
