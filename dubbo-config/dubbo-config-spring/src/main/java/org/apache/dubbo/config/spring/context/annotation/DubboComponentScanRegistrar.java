@@ -54,10 +54,13 @@ public class DubboComponentScanRegistrar implements ImportBeanDefinitionRegistra
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
 
+        // 获取扫描包路径
         Set<String> packagesToScan = getPackagesToScan(importingClassMetadata);
 
+        // 注册 @service 解析的类
         registerServiceAnnotationBeanPostProcessor(packagesToScan, registry);
 
+        // 注册解析 @Reference 注解的 bean
         registerReferenceAnnotationBeanPostProcessor(registry);
 
     }

@@ -115,6 +115,7 @@ public class ServiceAnnotationBeanPostProcessor implements BeanDefinitionRegistr
         Set<String> resolvedPackagesToScan = resolvePackagesToScan(packagesToScan);
 
         if (!CollectionUtils.isEmpty(resolvedPackagesToScan)) {
+            // 不为空则调用方法进行解析
             registerServiceBeans(resolvedPackagesToScan, registry);
         } else {
             if (logger.isWarnEnabled()) {
