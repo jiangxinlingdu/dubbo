@@ -805,10 +805,11 @@ public class ExtensionLoader<T> {
         try {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(resourceURL.openStream(), StandardCharsets.UTF_8))) {
                 String line;
-                //读取 文件 key=value 形式 获取，并且 # 表示注释情况
+                //读取 文件 key=value 形式 获取，并且 #后 表示注释情况
                 while ((line = reader.readLine()) != null) {
                     final int ci = line.indexOf('#');
                     if (ci >= 0) {
+                        // 截取 # 之前的字符串，# 之后的内容为注释，需要忽略
                         line = line.substring(0, ci);
                     }
                     line = line.trim();
