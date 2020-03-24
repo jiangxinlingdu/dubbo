@@ -742,6 +742,8 @@ public class ExtensionLoader<T> {
 
     /**
      * extract and cache default extension name if exists
+     *
+     * 获取接口  SPI 上面如果有默认值
      */
     private void cacheDefaultExtensionName() {
         final SPI defaultAnnotation = type.getAnnotation(SPI.class);
