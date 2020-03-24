@@ -413,6 +413,8 @@ public class ExtensionLoader<T> {
 
     /**
      * Return default extension, return <code>null</code> if it's not configured.
+     *
+     * 就是获取 SPI 上面设置的默认 key 对应的实现类
      */
     public T getDefaultExtension() {
         getExtensionClasses();
