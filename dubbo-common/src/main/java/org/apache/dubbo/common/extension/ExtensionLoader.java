@@ -114,6 +114,9 @@ public class ExtensionLoader<T> {
         // 但是如何在运行时动态的选用哪一种扩展类来提供服务，
         // 这就需要一种机制来进行动态的匹配。
         // Dubbo SPI中提供的Adaptive机制就为解决这个问题提供了一种良好的解决方案
+
+
+        //ExtensionFactory的作用就类似spring框架中的IOC的作用
         objectFactory = (type == ExtensionFactory.class ? null : ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension());
     }
 
