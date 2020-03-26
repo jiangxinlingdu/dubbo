@@ -620,6 +620,7 @@ public class ExtensionLoader<T> {
                 for (Class<?> wrapperClass : wrapperClasses) {
                     // (T) wrapperClass.getConstructor(type).newInstance(instance) AOP
                     // injectExtension 方法  IOC
+                    //用wrapper类的实例代替原有的instance ，但注意原有的instance作为wrapper的构造参数传入其内部了
                     instance = injectExtension((T) wrapperClass.getConstructor(type).newInstance(instance));
                 }
             }
