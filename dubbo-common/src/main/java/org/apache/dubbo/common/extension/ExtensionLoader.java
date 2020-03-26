@@ -116,7 +116,7 @@ public class ExtensionLoader<T> {
         // Dubbo SPI中提供的Adaptive机制就为解决这个问题提供了一种良好的解决方案
 
 
-        //ExtensionFactory的作用就类似spring框架中的IOC的作用
+        //为 dubbo 的 IOC 提供对象，通过需要 set 方法需要的对象 objectFactory 获取到 该对象进行  method.invoke(instance, object);
         objectFactory = (type == ExtensionFactory.class ? null : ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension());
     }
 
