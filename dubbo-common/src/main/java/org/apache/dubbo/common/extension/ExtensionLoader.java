@@ -661,8 +661,12 @@ public class ExtensionLoader<T> {
                 try {
                     String property = getSetterProperty(method);
                     //为 dubbo 的 IOC 提供对象
+                    //调用ExtensionFactory的getExtension方法获取要set的对象
                     Object object = objectFactory.getExtension(pt, property);
+
+                    //此时我们就可以将ExtensionFactory看作容器，判断这个要set的属性在容器中是否存在
                     if (object != null) {
+                        //执行set方法，完成一个属性的注入
                         method.invoke(instance, object);
                     }
                 } catch (Exception e) {
