@@ -109,6 +109,14 @@ public class ExtensionLoader<T> {
 
     private ExtensionLoader(Class<?> type) {
         this.type = type;
+
+        // Dubbo提供了一种SPI的机制用于动态的加载扩展类，
+        // 但是如何在运行时动态的选用哪一种扩展类来提供服务，
+        // 这就需要一种机制来进行动态的匹配。
+        // Dubbo SPI中提供的Adaptive机制就为解决这个问题提供了一种良好的解决方案
+
+
+        //为 dubbo 的 IOC 提供对象，通过需要 set 方法需要的对象 objectFactory 获取到 该对象进行  method.invoke(instance, object);
         objectFactory = (type == ExtensionFactory.class ? null : ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension());
     }
 
@@ -415,6 +423,8 @@ public class ExtensionLoader<T> {
 
     /**
      * Return default extension, return <code>null</code> if it's not configured.
+     *
+     * 就是获取 SPI 上面设置的默认 key 对应的实现类
      */
     public T getDefaultExtension() {
         getExtensionClasses();
@@ -612,6 +622,7 @@ public class ExtensionLoader<T> {
                 for (Class<?> wrapperClass : wrapperClasses) {
                     // (T) wrapperClass.getConstructor(type).newInstance(instance) AOP
                     // injectExtension 方法  IOC
+                    //用wrapper类的实例代替原有的instance ，但注意原有的instance作为wrapper的构造参数传入其内部了
                     instance = injectExtension((T) wrapperClass.getConstructor(type).newInstance(instance));
                 }
             }
@@ -653,8 +664,12 @@ public class ExtensionLoader<T> {
                 try {
                     String property = getSetterProperty(method);
                     //为 dubbo 的 IOC 提供对象
+                    //调用ExtensionFactory的getExtension方法获取要set的对象
                     Object object = objectFactory.getExtension(pt, property);
+
+                    //此时我们就可以将ExtensionFactory看作容器，判断这个要set的属性在容器中是否存在
                     if (object != null) {
+                        //执行set方法，完成一个属性的注入
                         method.invoke(instance, object);
                     }
                 } catch (Exception e) {
@@ -744,6 +759,8 @@ public class ExtensionLoader<T> {
 
     /**
      * extract and cache default extension name if exists
+     *
+     * 获取接口  SPI 上面如果有默认值
      */
     private void cacheDefaultExtensionName() {
         final SPI defaultAnnotation = type.getAnnotation(SPI.class);
@@ -754,6 +771,7 @@ public class ExtensionLoader<T> {
         String value = defaultAnnotation.value();
         if ((value = value.trim()).length() > 0) {
             String[] names = NAME_SEPARATOR.split(value);
+            // 默认值 只能是一个 而不可以是多个
             if (names.length > 1) {
                 throw new IllegalStateException("More than 1 default extension name on extension " + type.getName()
                         + ": " + Arrays.toString(names));
