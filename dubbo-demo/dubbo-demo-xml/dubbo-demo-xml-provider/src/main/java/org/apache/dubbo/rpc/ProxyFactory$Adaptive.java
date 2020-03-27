@@ -1,4 +1,4 @@
-package org.apache.dubbo.demo.rpc;
+package org.apache.dubbo.rpc;
 
 import org.apache.dubbo.common.extension.ExtensionLoader;
 
