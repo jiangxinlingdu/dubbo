@@ -30,6 +30,8 @@ import static org.apache.dubbo.common.constants.CommonConstants.LOCALHOST_VALUE;
 
 /**
  * InjvmInvoker
+ *
+ * 本地执行类的 Invoker
  */
 class InjvmInvoker<T> extends AbstractInvoker<T> {
 

@@ -49,6 +49,8 @@ import static org.apache.dubbo.rpc.Constants.TOKEN_KEY;
 
 /**
  * DubboInvoker
+ *
+ * 远程通信类的 Invoker ,client 端，发送要执行的接口给 server 端
  */
 public class DubboInvoker<T> extends AbstractInvoker<T> {
 

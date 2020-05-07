@@ -34,6 +34,9 @@ import java.util.concurrent.CompletionException;
 
 /**
  * InvokerWrapper
+ *
+ *  远程通信类的 Invoker, server 端，将执行结果发送给 clint 端
+ *  多个远程通信执行类的 Invoker 的聚合为集群，server 端，将执行结果发送给 clint 端
  */
 public abstract class AbstractProxyInvoker<T> implements Invoker<T> {
     Logger logger = LoggerFactory.getLogger(AbstractProxyInvoker.class);

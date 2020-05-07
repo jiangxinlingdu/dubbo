@@ -48,6 +48,9 @@ import static org.apache.dubbo.rpc.cluster.Constants.DEFAULT_CLUSTER_STICKY;
 
 /**
  * AbstractClusterInvoker
+ *
+ * 多个远程通信执行类的 Invoker 的聚合为集群, client 端，负载均衡（很多）选择一个 Invoker
+ * 发送要执行的接口给 server 端
  */
 public abstract class AbstractClusterInvoker<T> implements Invoker<T> {
 
