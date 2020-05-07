@@ -79,6 +79,7 @@ public class DefaultFuture extends CompletableFuture<Object> {
     private DefaultFuture(Channel channel, Request request, int timeout) {
         this.channel = channel;
         this.request = request;
+        //会把id 传递到 response ，并且本地存起来，之后响应回来 就对上了 类似买东西一个快递单，之后收件也有快递单对上了
         this.id = request.getId();
         this.timeout = timeout > 0 ? timeout : channel.getUrl().getPositiveParameter(TIMEOUT_KEY, DEFAULT_TIMEOUT);
         // put into waiting map.
