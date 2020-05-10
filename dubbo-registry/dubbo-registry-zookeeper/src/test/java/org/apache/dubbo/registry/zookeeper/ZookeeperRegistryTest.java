@@ -59,6 +59,7 @@ public class ZookeeperRegistryTest {
 
         this.registryUrl = URL.valueOf("zookeeper://localhost:" + zkServerPort);
         zookeeperRegistryFactory = new ZookeeperRegistryFactory();
+        // 用  Curator 操作 zk
         zookeeperRegistryFactory.setZookeeperTransporter(new CuratorZookeeperTransporter());
         this.zookeeperRegistry = (ZookeeperRegistry) zookeeperRegistryFactory.createRegistry(registryUrl);
     }
