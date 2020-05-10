@@ -101,9 +101,9 @@ import static org.apache.dubbo.remoting.Constants.CLIENT_KEY;
 
 /**
  * See {@link ApplicationModel} and {@link ExtensionLoader} for why this class is designed to be singleton.
- *
+ * <p>
  * The bootstrap class of Dubbo
- *
+ * <p>
  * Get singleton instance by calling static method {@link #getInstance()}.
  * Designed as singleton because some classes inside Dubbo, such as ExtensionLoader, are designed only for one instance per process.
  *
@@ -501,22 +501,23 @@ public class DubboBootstrap extends GenericEventListener {
             return;
         }
 
+        //初始化框架的扩展
         ApplicationModel.iniFrameworkExts();
-
+        //初始化配置中心
         startConfigCenter();
-
+        //注册中心相关
         useRegistryAsConfigCenterIfNecessary();
-
+        //metadat
         startMetadataReport();
-
+        //远程配置
         loadRemoteConfigs();
-
+        //检查全局配置
         checkGlobalConfigs();
-
+        //初始化 madata服务
         initMetadataService();
-
+        //初始化
         initMetadataServiceExporter();
-
+        //将本身添加到事件监听器列表中，因为DubboBootstrap本身就是一个事件监听器
         initEventListener();
 
         if (logger.isInfoEnabled()) {
@@ -692,6 +693,7 @@ public class DubboBootstrap extends GenericEventListener {
 
     /**
      * Start the bootstrap
+     * 入口
      */
     public DubboBootstrap start() {
         if (started.compareAndSet(false, true)) {

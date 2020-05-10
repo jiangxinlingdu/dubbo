@@ -107,6 +107,7 @@ public class DubboNamespaceHandler extends NamespaceHandlerSupport implements Co
      */
     private void registerApplicationListeners(BeanDefinitionRegistry registry) {
         registerBeans(registry, DubboLifecycleComponentApplicationListener.class);
+        //注册 beans
         registerBeans(registry, DubboBootstrapApplicationListener.class);
     }
 
