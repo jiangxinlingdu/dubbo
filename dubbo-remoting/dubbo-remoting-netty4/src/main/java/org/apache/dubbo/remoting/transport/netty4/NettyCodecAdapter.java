@@ -70,6 +70,7 @@ final public class NettyCodecAdapter {
         }
     }
 
+    //dubbo 内部解码实现
     private class InternalDecoder extends ByteToMessageDecoder {
 
         @Override
